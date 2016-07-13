@@ -1,15 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Search from './components/search.component.js';
+import Details from './components/details.component.js';
+import Player from './components/player.component.js';
+import Progress from './components/progress.component.js';
+import Footer from './components/footer.component.js';
 
-class Search extends React.Component {
+class Main extends React.Component {
   render () {
     return (
-      <form>
-        <input type='text' />
-        <input type='submit' />
-      </form>
+      <div>
+        <Search />
+        <Details title='Track Title' />
+        <Player />
+        <Progress position={'0.3'} elapsed={'00:00'} total={'0:40'} />
+        <Footer />
+      </div>
     );
   }
 }
 
-ReactDOM.render(<Search />, document.getElementById('content'));
+ReactDOM.render(<Main />, document.getElementById('content'));
