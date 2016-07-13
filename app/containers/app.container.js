@@ -6,11 +6,12 @@ import Details from '../components/details.component.js';
 import Player from '../components/player.component.js';
 import Progress from '../components/progress.component.js';
 import Footer from '../components/footer.component.js';
+import config from '../../config.js';
 
 class AppContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.client_id = 'YOUR_CLIENT_ID';
+    this.client_id = config.client_id;
     this.state = {
       track: {stream_url: '', title: '', artwork_url: ''},
       playStatus: Sound.status.STOPPED,
@@ -24,17 +25,18 @@ class AppContainer extends React.Component {
   }
   randomTrack () {
     let _this = this;
-    axios.get(`https://api.soundcloud.com/playlists/209262931?client_id=${this.client_id}`)
+    axios.get(`https://api.soundcloud.com/tracks?client_id=${this.client_id}`)
       .then(function (response) {
-        const trackLength = response.data.tracks.length;
+        console.log(response.data);
+        const trackLength = response.data.length;
         const randomNumber = Math.floor((Math.random() * trackLength ) + 1);
-        _this.setState({track: response.data.track[randomNumber]});
+        _this.setState({track: response.data[randomNumber]});
       })
       .catch(function (err) {
         console.log(err);
       });
   }
-  prepareUrl () {
+  prepareUrl (url) {
     return `${url}?client_id=${this.client_id}`;
   }
   handleSongPlaying (audio) {
@@ -109,9 +111,17 @@ class AppContainer extends React.Component {
   componentDidMount () {
     this.randomTrack();
   }
+  xlArtwork (url) {
+    return url.replace(/large/, 't500x500');
+  }
   render () {
+    const scotchStyle = {
+      width: '500px',
+      height: '500px',
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${this.xlArtwork(this.state.track.artwork_url)})`
+    }
     return (
-      <div className='scotch_music'>
+      <div className='scotch_music' style={scotchStyle}>
         <Search autoCompleteValue={this.state.autoCompleteValue}
           tracks={this.state.tracks}
           handleSelect={this.handleSelect.bind(this)}
