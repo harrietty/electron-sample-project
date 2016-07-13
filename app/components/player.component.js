@@ -4,8 +4,8 @@ import ClassNames from 'classnames';
 class Player extends React.Component {
   render () {
     const playPauseClass = ClassNames({
-      'fa fa-play': this.props.playStatus === 'PLAYING' ? true : false,
-      'fa fa-pause': this.props.playStatus === 'PLAYING' ? false : true
+      'fa fa-pause': this.props.playStatus === 'PLAYING' ? true : false,
+      'fa fa-play': this.props.playStatus === 'PLAYING' ? false : true
     });
     return (
       <div className='player'>

@@ -115,6 +115,7 @@ class AppContainer extends React.Component {
     return url.replace(/large/, 't500x500');
   }
   render () {
+    console.log(this.state);
     const scotchStyle = {
       width: '500px',
       height: '500px',
@@ -132,7 +133,7 @@ class AppContainer extends React.Component {
           playFromPosition={this.state.playFromPosition}
           onFinishedPlaying={this.handleSongFinished.bind(this)} />
         <Details title={this.state.track.title} />
-        <Player togglePlay={this.togglePlay}
+        <Player togglePlay={this.togglePlay.bind(this)}
           stop={this.stop.bind(this)}
           playStatus={this.state.playStatus}
           forward={this.forward.bind(this)}
